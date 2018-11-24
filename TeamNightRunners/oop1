@@ -1,0 +1,92 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
+
+public class Employee extends Person {
+	//Ажилчны дугаар 
+	private String companyID;
+	//Ажилчны албан тушаал 
+	private String title;
+	//Ажилчны ажиллаж эхлэсэн өдөр 
+	private Date startDate;
+	//Ажилчны гэр бүлийн хүн 
+	private Spouse spouse;
+	//Ажилчны хүүхэд 
+	private Vector<Child> children;
+	//Ажилчны тодорхойлолт
+	private Vector<JobDescription> descs = new Vector<JobDescription>();
+	//Ажилчны салбар
+	private Division division;
+	//Ажилчны байгуулагч функцууд 
+	public Employee(){
+		super();
+		setCompanyID(CID001); setTitle("Staff"); setStartDate("2000/01/01");
+	}
+	public Employee(String name, String ssn, int age, String comID, String ttle, Date stDate){
+		System.out.println("Constructing a Employee");
+		setCompanyID(comID); setTitle(ttle); setStartDate(stDate);
+	}
+	/* GET */
+	//Ажилчны дугаарыг буцаах функц 
+	public String getCompanyID(){ return this.companyID; }
+	//Ажилчны албан тушаалыг буцаах функц 
+	public String getTitle(){ return this.title; }
+	//Ажилчны ажиллаж эхлэсэн өдрийг буцаах функц 
+	public Date getStartDate(){ return this.startDate; }
+	//Ажилчны гэр бүлийн хүнийг буцаах функц
+	public Spouse getSpouse(){
+		if(this.spouse != NULL)
+			return spouse.getName();
+		else
+			return NULL;
+	}
+	//Ажилчны хүүхдийг буцаах функц 
+	public void getChildren(){
+		try{
+			if(this.children.isEmpty())
+					System.out.println("Ta huuhedgui baina!");
+			else{
+				for(int i = 0; i < this.children.size(); i++){
+					System.out.println("Child No. "+(i+1));
+					System.out.println("Name is "+children.get(i).getName());
+					System.out.println("SSN is "+children.get(i).getSSN());
+					System.out.println("Age is "+children.get(i).getAge());
+				}
+			}
+		}catch(NullPointerException e) {System.out.println("Ta huuhedgui baina!");}
+	}
+	//Ажилчны тодорхойлолтыг буцаах функц
+	public void getDesc(){
+		for(int i = 0; i < this.descs.size(); i++)
+			System.out.println(jobs.get(i).getDescription());
+	}
+	//Ажилчны салбарыг буцаах функц
+	public String getDivision(){ return this.division.getDivisionName(); }
+	/* SET */
+	//Ажилчны дугаарт утга олгох функц 
+	public void setCompanyID(String comID){ this.companyID = comID; }
+	//Ажилчны албан тушаалд утга олгох функц 
+	public void setTitle(String ttle){ this.title = ttle; }
+	//Ажилчны ажиллаж эхлэсэн өдрийг олгох функц 
+	public void setStartDate(String startDate){
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy/MM/dd");
+		try{
+			this.startDate = dt.parse(startDate);
+		}catch(ParseException e){
+			e.printStackTrace();
+		}
+	}
+	//Ажилчны гэр бүлийн хүнийг утга олгох функц 
+	public void setSpouse(Spouse spouse){ this.spouse = spouse; }
+	//Ажилчны хүүхдийг утга олгох функц 
+	public void setChild(Child child){
+		try{
+			this.children = new Vector<Child>();
+		}catch(IllegalArgumentException e) { children.add(child); }
+	}
+	//Ажилчны тодорхойлолтонд утга олгох функц
+	public void setDesc(JobDescription desc){ descs.add(desc); }
+	//Ажилчны салбарт утга олгох функц 
+	public void setDivision(Division div){ this.division = div; }
+}
